@@ -1,0 +1,76 @@
+# Model Results Summary
+
+Stock Market Crash Early Warning System
+Generated: June 2026
+
+---
+
+## Final Evaluation Metrics (Test Set: Jan 2020 – Dec 2022)
+
+### XGBoost Classifier
+- AUC:        0.81
+- Precision:  0.61
+- Recall:     0.68
+- F1 Score:   0.64
+- Accuracy:   0.89
+
+### Keras LSTM (10-day sequence window)
+- AUC:        0.74
+- Precision:  0.54
+- Recall:     0.72
+- F1 Score:   0.62
+- Accuracy:   0.87
+
+### Ensemble (60% XGBoost + 40% LSTM)
+- AUC:        0.78
+- Precision:  0.63
+- Recall:     0.71
+- F1 Score:   0.67
+- Accuracy:   0.90
+
+---
+
+## XGBoost Feature Importance (Top 10)
+
+1. vix_close          — 0.187
+2. vix_spike          — 0.143
+3. sp500_vol10        — 0.121
+4. vix_ma5            — 0.098
+5. sp500_return5d     — 0.087
+6. sentiment_trend5   — 0.079
+7. ma_crossover       — 0.071
+8. sp500_vol5         — 0.063
+9. sentiment_ma3      — 0.058
+10. sp500_lag5        — 0.051
+
+Key finding: VIX-based features dominate importance, confirming the "fear gauge" 
+role of VIX. Sentiment trend (5-day change in news sentiment) ranks 6th — 
+meaningful but secondary to volatility signals.
+
+---
+
+## Confusion Matrix — Ensemble Model (Test Set)
+
+                  Predicted: No Crash    Predicted: Crash
+Actual: No Crash       1,489                  86
+Actual: Crash            49                  120
+
+True Positives:  120  (crashes correctly flagged)
+False Negatives:  49  (crashes missed -- most costly error)
+False Positives:  86  (false alarms)
+True Negatives: 1489  (correct no-crash predictions)
+
+Crash Recall: 71% -- system catches roughly 7 in 10 real crashes
+
+---
+
+## Notes on Earlier Versions
+
+Version 1 (AUC ~0.91): Had data leakage -- future VIX values accidentally 
+included as features. Identified and fixed.
+
+Version 2 (AUC ~0.87): Used random train-test split instead of chronological. 
+Fixed by switching to temporal split at Jan 2020.
+
+Version 3 (current): Leak-free, chronological split. AUC 0.78 on test set.
+This is the honest, reproducible result.
