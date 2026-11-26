@@ -150,5 +150,3 @@ Shows true positives, false positives, false negatives for crash detection — f
 1. **Sentiment data quality** — the Kaggle sentiment dataset uses simple VADER scores, not domain-specific financial NLP. A proper deployment would use FinBERT or similar.
 2. **Class imbalance** — crashes are rare events (~8% of dataset). SMOTE or class weighting would help, not yet implemented.
 3. **No real-time data** — currently works only on historical static data. Live deployment would need API integration.
-
-These are documented honestly because any technical interviewer will ask about limitations — better to show you're aware of them.

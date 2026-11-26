@@ -3,7 +3,7 @@ Feature Engineering Script
 ============================
 Stock Market Crash Early Warning System
 Author: Rushikesh Patil
-MSc Marketing Management, ISM Dortmund
+M.Sc. Business Intelligence and Data Science, ISM Dortmund
 
 This script runs inside the KNIME Python Script Node.
 Input: Merged dataframe with sp500, vix, and sentiment columns
